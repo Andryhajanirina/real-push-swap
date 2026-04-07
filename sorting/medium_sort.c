@@ -6,7 +6,7 @@
 /*   By: andry-ha <andry-ha@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:51:31 by andry-ha          #+#    #+#             */
-/*   Updated: 2026/03/20 15:51:47 by andry-ha         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:53:16 by andry-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,19 @@ static void	push_to_b(t_sort_ctx *ctx)
 void	medium_sort(t_stack **a, t_stack **b, t_config *cfg)
 {
 	t_sort_ctx	ctx;
+	int size;
 
 	ctx.a = a;
 	ctx.b = b;
 	ctx.cfg = cfg;
 	ctx.i = 0;
-	ctx.chunk = ft_sqrt_ceil(stack_size(*a));
+
+	size = stack_size(*a);
+	if (size <= 3)
+		return (sort_3(a, cfg));
+	else if (size <= 5)
+		return (sort_5(a, b, cfg));
+	ctx.chunk = ft_sqrt_ceil(size);
 	while (*a)
 		push_to_b(&ctx);
 	while (*ctx.b)
